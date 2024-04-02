@@ -101,6 +101,7 @@ sudo reboot
 10) Now we established a secure ssh connexion without password.
 
 # Set up DNS in linux server
+**configure zone file**
 
 1) Go to /etc/bind, it's where DNS is located. 
 2) Run this command (in /etc/bind) to generate a dns configuration files with authentication etc
@@ -118,6 +119,23 @@ key "dhcp1.templab.lan" {
 	secret "FochCXddaefWbaU3KFzfHczsCxfu1tkh8SMvt57MDE0=";
 };
 ```
+5) We should have a db.172.16 file and db.templab.lan in /etc/bin, if not, we can create them by copying original db file and configure them after : 
+```bash
+sudo cp /etc/bind/db.empty /etc/bind/db.templab.lan
+
+```
+```bash
+sudo cp /etc/bind/db.127 /etc/bind/db.172.16
+```
+6) We remove both of these file inside /var/lib directory so it can be accessible  
+```bash
+sudo mv db.templab.lan /var/lib/bind/
+
+```
+```bash
+sudo mv db.127.16 /var/lib/bind/
+```
+7)
 
 
 # Set up DHCP in linux server
