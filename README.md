@@ -57,6 +57,7 @@ Mac tips : <br>
 
 
 # Process : 
+# Set up a secured SSH without password 
 
 1) In our case we'll run that server on a kali linux vm hosted with UTM. 
 2) We want to connect our hosts to the vm so we'll verify if SSH is enable, if not, start it up.
@@ -89,5 +90,33 @@ sudo vim /etc/ssh/sshd_config
 ```bash
 find the line and change it to no => PasswordAuthentication no 
 ```
-8) Now we established a secure ssh connexion without password.
-9) 
+8) Restart ssh service to make changes working with :
+```bash
+sudo systemctl restart ssh
+```
+9) Sometimes it's better to reboot the machine to make all changes. Do it with :
+```bash
+sudo reboot
+```
+10) Now we established a secure ssh connexion without password.
+
+# Set up DNS in linux server
+
+1) Go to /etc/bind, it's where DNS is located. 
+2) Run this command (in /etc/bind) to generate a dns configuration files with authentication etc
+```bash
+ddns-confgen
+```
+3) As we want to have unique key for each hosts, will change the key name (which is by default "ddns-key") to dhcp1.templab.lan (care, this cmd will automaticaly change the password)
+```bash
+ddns-confgen -k dhcp1.templab.lan
+```
+4) As we want to have unique key for each hosts, will change the key name (which is by default "ddns-key".
+```bash
+ddns-confgen
+```
+
+
+# Set up DHCP in linux server
+
+1) 
