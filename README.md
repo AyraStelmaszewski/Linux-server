@@ -52,8 +52,8 @@ a documentation in word format named LinuxBrief_firstname1_firstname2.docx,
 a summary in English (at least one page)
 Live demonstration in front of the group
 
-Mac tips : 
-| => maj+option+l 
+Mac tips : <br>
+| => maj+option+l <br>
 
 
 # Process : 
@@ -61,10 +61,10 @@ Mac tips :
 1) In our case we'll run that server on a kali linux vm hosted with UTM. 
 2) We want to connect our hosts to the vm so we'll verify if SSH is enable, if not, start it up.
 ```bash
-sudo ssh service status 
+sudo ssh service status OR (depend of Ubuntu version) sudo systemctl status ssh
 ```
 ```bash
-sudo ssh service start
+sudo ssh service restart OR (depend of Ubuntu version) sudo systemctl restart ssh
 ```
 3) Make the connexion between hosts, my vm IP is 192.168.64.2 and user ayra so : 
 ```bash
