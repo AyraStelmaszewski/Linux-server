@@ -70,3 +70,24 @@ sudo ssh service restart OR (depend of Ubuntu version) sudo systemctl restart ss
 ```bash
 ssh ayra@192.168.64.2 
 ```
+4) Change the host name of your server  
+```bash
+hostnamectl set-hostname libraryserver
+```
+5) We'll configure our SSH connexion with a key so password will be enable. It avoids people brute forcing our ssh password.   
+```bash
+ssh-keygen
+```
+6) We'll copy our SSH key directly to the server from our host machine :   
+```bash
+ssh-copy-id -i /Users/dotcom/.ssh/id_rsa.pub ayra@192.168.64.3
+```
+7) Now we can connect without ssh password but ssh password still available. Desactivate them with :
+```bash
+sudo vim /etc/ssh/sshd_config
+```
+```bash
+find the line and change it to no => PasswordAuthentication no 
+```
+8) Now we established a secure ssh connexion without password.
+9) 
