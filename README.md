@@ -59,7 +59,7 @@ Mac tips : <br>
 # Process : 
 # Set up a secured SSH without password 
 
-1) In our case we'll run that server on a kali linux vm hosted with UTM. 
+1) In our case we'll run that server on a Ubuntu Server vm hosted with UTM. 
 2) We want to connect our hosts to the vm so we'll verify if SSH is enable, if not, start it up.
 ```bash
 sudo ssh service status OR (depend of Ubuntu version) sudo systemctl status ssh
@@ -111,9 +111,12 @@ ddns-confgen
 ```bash
 ddns-confgen -k dhcp1.templab.lan
 ```
-4) As we want to have unique key for each hosts, will change the key name (which is by default "ddns-key".
+4) Still inside /etc/bind, we'll create our a file dhcp1.key in /etc/bind/ with configuration key we've copy from the outpout of ddns-confgen, bellow the part we copied inside dhcp1.key
 ```bash
-ddns-confgen
+key "dhcp1.templab.lan" {
+	algorithm hmac-sha256;
+	secret "FochCXddaefWbaU3KFzfHczsCxfu1tkh8SMvt57MDE0=";
+};
 ```
 
 
