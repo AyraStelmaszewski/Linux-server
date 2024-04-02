@@ -52,6 +52,9 @@ a documentation in word format named LinuxBrief_firstname1_firstname2.docx,
 a summary in English (at least one page)
 Live demonstration in front of the group
 
+Mac tips : 
+| => maj+option+l 
+
 
 # Process : 
 
@@ -65,5 +68,5 @@ sudo ssh service start
 ```
 3) Make the connexion between hosts, my vm IP is 192.168.64.2 and user ayra so : 
 ```bash
-sss ayra@192.168.64.2 
+ssh ayra@192.168.64.2 
 ```
