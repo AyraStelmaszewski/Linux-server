@@ -51,3 +51,19 @@ the documentation must be clear, structured and must provide all elements of con
 a documentation in word format named LinuxBrief_firstname1_firstname2.docx,
 a summary in English (at least one page)
 Live demonstration in front of the group
+
+
+# Process : 
+
+1) In our case we'll run that server on a kali linux vm hosted with UTM. 
+2) We want to connect our hosts to the vm so we'll verify if SSH is enable, if not, start it up.
+```bash
+sudo ssh service status 
+```
+```bash
+sudo ssh service start
+```
+3) Make the connexion between hosts, my vm IP is 192.168.64.2 and user ayra so : 
+```bash
+sss ayra@192.168.64.2 
+```
