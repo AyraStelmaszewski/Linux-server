@@ -269,4 +269,5 @@ subnet 192.168.64.0 netmask 255.255.255.248 {
   max-lease-time 7200;
 }
 ```
+14) We are able to browse http://librarykali from our host machine within the network through dchp.
 
