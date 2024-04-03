@@ -107,7 +107,7 @@ sudo reboot
 ```bash
 sudo apt-get install sc-dhcp-server
 ```
-2) Configure the .conf file with your network, in our case we'll use this :
+2) Configure the .conf (/etc/dhcp/dhcpd.conf) file with your network, in our case we'll use this :
 ```bash
 subnet 192.168.64.0 netmask 255.255.255.248 {
   range 192.168.64.4 192.168.64.6;
