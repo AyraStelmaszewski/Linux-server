@@ -101,40 +101,56 @@ sudo reboot
 10) Now we established a secure ssh connexion without password.
 
 # Set up DNS in linux server
-**configure zone file**
+**Configure zone file**
 
-1) Go to /etc/bind, it's where DNS is located. 
-2) Run this command (in /etc/bind) to generate a dns configuration files with authentication etc
+1) Install dhcp on the server isc-dhcp-server
 ```bash
-ddns-confgen
+sudo apt-get install sc-dhcp-server
 ```
-3) As we want to have unique key for each hosts, will change the key name (which is by default "ddns-key") to dhcp1.templab.lan (care, this cmd will automaticaly change the password)
+2) Configure the .conf file with your network, in our case we'll use this :
 ```bash
-ddns-confgen -k dhcp1.templab.lan
+subnet 192.168.64.0 netmask 255.255.255.248 {
+  range 192.168.64.4 192.168.64.6;
+  option domain-name-servers 1.1.1.1, 8.8.8.8;
+  option subnet-mask 255.255.255.248;
+  option routers 192.168.64.1;
+  default-lease-time 3600;
+  max-lease-time 7200;
+}
 ```
-4) Still inside /etc/bind, we'll create our a file dhcp1.key in /etc/bind/ with configuration key we've copy from the outpout of ddns-confgen, bellow the part we copied inside dhcp1.key
+3) It will be the offical dhcp server for our local network so allow authoritative;
 ```bash
-key "dhcp1.templab.lan" {
-	algorithm hmac-sha256;
-	secret "FochCXddaefWbaU3KFzfHczsCxfu1tkh8SMvt57MDE0=";
-};
+authoritative;
 ```
-5) We should have a db.172.16 file and db.templab.lan in /etc/bin, if not, we can create them by copying original db file and configure them after : 
+4) To check the status of our server we can use : 
 ```bash
-sudo cp /etc/bind/db.empty /etc/bind/db.templab.lan
+systemctl status isc-dhcp-server
+```
+5) We'll active a firewall ufw and allow port 67 for our dhcp server :
+```bash
+sudo ufw start
+```
+```bash
+sudo ufw allow 67
+```
+```bash
+sudo ufw restart
+```
+```bash
+sudo ufw status
+```
+6) We're using ssh on default port so let's allow ssh to ufw : 
+```bash
+sudo ufw allow ssh
+```
+7) Start dhcp server on port 67 with your specific interface, in our case enp0s1
+```bash
+sudo tcpdump -vv -n -i enp0s1 port 67
+```
+8) Lunch another vm on your network and it's ip will be assigned with our dhcp configuration.
 
-```
-```bash
-sudo cp /etc/bind/db.127 /etc/bind/db.172.16
-```
-6) We remove both of these file inside /var/lib directory so it can be accessible  
-```bash
-sudo mv db.templab.lan /var/lib/bind/
+**Configure DNS**
 
-```
-```bash
-sudo mv db.127.16 /var/lib/bind/
-```
 7)
 
 
