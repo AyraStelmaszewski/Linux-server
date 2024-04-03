@@ -148,9 +148,41 @@ sudo ufw allow ssh
 sudo tcpdump -vv -n -i enp0s1 port 67
 ```
 8) Lunch another vm on your network and it's ip will be assigned with our dhcp configuration.
+9) In the cli where we lunched the server we can see a connexion have been made.
+```bash
+12:31:31.064050 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 322)
+    0.0.0.0.68 > 255.255.255.255.67: [udp sum ok] BOOTP/DHCP, Request from fa:1e:74:d8:e0:bb, length 294, xid 0x25bdfeb6, secs 1, Flags [none] (0x0000)
+	  Client-Ethernet-Address fa:1e:74:d8:e0:bb
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Request
+	    Client-ID (61), length 7: ether fa:1e:74:d8:e0:bb
+	    Parameter-Request (55), length 17: 
+	      Subnet-Mask (1), Time-Zone (2), Domain-Name-Server (6), Hostname (12)
+	      Domain-Name (15), MTU (26), BR (28), Classless-Static-Route (121)
+	      Default-Gateway (3), Static-Route (33), YD (40), YS (41)
+	      NTP (42), Unknown (119), Classless-Static-Route-Microsoft (249), Unknown (252)
+	      RP (17)
+	    MSZ (57), length 2: 576
+	    Requested-IP (50), length 4: 192.168.64.4
+	    Server-ID (54), length 4: 192.168.64.3
+	    Hostname (12), length 4: "kali"
+12:31:31.068523 IP (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    192.168.64.3.67 > 192.168.64.4.68: [udp sum ok] BOOTP/DHCP, Reply, length 300, xid 0x25bdfeb6, secs 1, Flags [none] (0x0000)
+	  Your-IP 192.168.64.4
+	  Server-IP 192.168.64.3
+	  Client-Ethernet-Address fa:1e:74:d8:e0:bb
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: ACK
+	    Server-ID (54), length 4: 192.168.64.3
+	    Lease-Time (51), length 4: 3600
+	    Subnet-Mask (1), length 4: 255.255.255.248
+	    Domain-Name-Server (6), length 8: 1.1.1.1,8.8.8.8
+	    Default-Gateway (3), length 4: 192.168.64.1
 
 **Configure DNS**
-
+```
 7)
 
 
