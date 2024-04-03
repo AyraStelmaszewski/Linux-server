@@ -179,7 +179,6 @@ sudo tcpdump -vv -n -i enp0s1 port 67
 	    Domain-Name-Server (6), length 8: 1.1.1.1,8.8.8.8
 	    Default-Gateway (3), length 4: 192.168.64.1
 
-**Configure DNS**
 ```
 7) To verify the connexion you can also use this cmd to list all ip deserved by your dhcp server : 
 ```bash
@@ -187,4 +186,87 @@ dhcp-lease-list
 ```
 
 # Set up DNS in linux server
-1) 
+1) We'll use bind9 to build our dns so install it
+```bash
+sudo apt install bind9
+```
+3) Stop and disable systemd, default dns services
+```bash
+systemctl disable systemd-resolved.service 
+```
+```bash
+systemctl stop systemd-resolved.service
+```
+4) We can verify it's stopped with dig cmd
+```bash
+dig google.com
+```
+5) We'll configure our resolv.conf file in /etc/resolv.conf with this string
+```bash
+namerserver 127.0.0.1
+```
+6) We'll configure our /etc/bind/named.conf.options files
+```bash
+         forwarders {
+                192.168.64.3;
+         };
+```
+7) Restart the server
+```bash
+systemctl restart bind9
+```
+8) We'll create a zones folder in /etc/bind/ to manage our zone. Take original synthax from db.local in /etc/bind/ to make our configuration.
+```bash
+ayra@libraryserver:/etc/bind$ sudo cp db.local zones/db.librarykali
+```
+```bash
+;
+; BIND data file for local loopback interface
+;
+$ORIGIN librarykali.
+$TTL    604800
+@       IN      SOA     librarykali. root.librarykali. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      nsl.librarykali.
+ubuntu.librarykali.     IN      A       192.168.64.3
+nsl.librarykali.        IN      A       192.168.64.3
+librarykali.            IN      A       192.168.64.3
+```
+9) Allow udp on the ufw firewall
+```bash
+sudo ufw allow 53/udp
+```
+10) We should have a correct answer with ip related with dig now.
+```bash
+dig ubuntu.librarykali
+```
+```bash
+;; ANSWER SECTION:
+ubuntu.librarykali.	604800	IN	A	192.168.64.3
+```
+11) Install apache2 for the webpage
+```bash
+sudo apt-get install apache2
+```
+12) Allow tcp to the ufw firewall
+```bash
+sudo ufw allow 80/tcp
+```
+13) Configure our DNS in the /etc/dhcp/dhcpd.conf !!!!!!!Why not .com ?!!!!!!!!
+```bash
+subnet 192.168.64.0 netmask 255.255.255.248 {
+  range 192.168.64.4 192.168.64.6;
+  option domain-name-servers 192.168.64.3;
+  option domain-name "librarykali.com"
+  option subnet-mask 255.255.255.248;
+  option routers 192.168.64.1;
+  default-lease-time 3600;
+  max-lease-time 7200;
+}
+```
+
