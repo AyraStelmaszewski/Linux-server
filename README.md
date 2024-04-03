@@ -103,7 +103,7 @@ sudo reboot
 # Set up DHCP in linux server
 1) Install dhcp on the server isc-dhcp-server
 ```bash
-sudo apt-get install sc-dhcp-server
+sudo apt-get install isc-dhcp-server
 ```
 2) Configure the .conf (/etc/dhcp/dhcpd.conf) file with your network, in our case we'll use this :
 ```bash
