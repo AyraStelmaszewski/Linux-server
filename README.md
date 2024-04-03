@@ -100,9 +100,7 @@ sudo reboot
 ```
 10) Now we established a secure ssh connexion without password.
 
-# Set up DNS in linux server
-**Configure zone file**
-
+# Set up DHCP in linux server
 1) Install dhcp on the server isc-dhcp-server
 ```bash
 sudo apt-get install sc-dhcp-server
@@ -183,9 +181,10 @@ sudo tcpdump -vv -n -i enp0s1 port 67
 
 **Configure DNS**
 ```
-7)
+7) To verify the connexion you can also use this cmd to list all ip deserved by your dhcp server : 
+```bash
+dhcp-lease-list
+```
 
-
-# Set up DHCP in linux server
-
+# Set up DNS in linux server
 1) 
