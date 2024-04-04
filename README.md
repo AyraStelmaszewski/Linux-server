@@ -141,12 +141,13 @@ sudo ufw status
 ```bash
 sudo ufw allow ssh
 ```
-7) Start dhcp server on port 67 with your specific interface, in our case enp0s1
+7) You have to allow rights for dhcp on /var/lib/dhcp/dhcpd.leases file.
+8) You can start dhcp server listener on port 67 with your specific interface, in our case enp0s1
 ```bash
 sudo tcpdump -vv -n -i enp0s1 port 67
 ```
-8) Lunch another vm on your network and it's ip will be assigned with our dhcp configuration.
-9) In the cli where we lunched the server we can see a connexion have been made.
+9) Lunch another vm on your network and it's ip will be assigned with our dhcp configuration.
+10) In the cli where we lunched the server we can see a connexion have been made.
 ```bash
 12:31:31.064050 IP (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 322)
     0.0.0.0.68 > 255.255.255.255.67: [udp sum ok] BOOTP/DHCP, Request from fa:1e:74:d8:e0:bb, length 294, xid 0x25bdfeb6, secs 1, Flags [none] (0x0000)
@@ -180,11 +181,15 @@ sudo tcpdump -vv -n -i enp0s1 port 67
 	    Default-Gateway (3), length 4: 192.168.64.1
 
 ```
-7) To verify the connexion you can also use this cmd to list all ip deserved by your dhcp server : 
+11) To verify the connexion you can also use this cmd to list all ip deserved by your dhcp server : 
 ```bash
 dhcp-lease-list
 ```
-
+**Debug**
+- Monitor errors in real time 
+```bash
+sudo tail -f /var/log/syslog /var/log/messages
+```
 # Set up DNS in linux server
 1) We'll use bind9 to build our dns so install it
 ```bash
