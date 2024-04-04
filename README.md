@@ -262,7 +262,11 @@ sudo apt-get install apache2
 ```bash
 sudo ufw allow 80/tcp
 ```
-13) Configure our DNS in the /etc/dhcp/dhcpd.conf !!!!!!!Why not .com ?!!!!!!!!
+13) On the client device, add the IP of the DNS server in the Network configuration
+```bash
+192.168.64.3
+```
+14) Configure our DNS in the /etc/dhcp/dhcpd.conf !!!!!!!Why not .com ?!!!!!!!!
 ```bash
 subnet 192.168.64.0 netmask 255.255.255.248 {
   range 192.168.64.4 192.168.64.6;
@@ -274,5 +278,5 @@ subnet 192.168.64.0 netmask 255.255.255.248 {
   max-lease-time 7200;
 }
 ```
-14) We are able to browse http://librarykali from our host machine within the network through dchp.
+15) We are able to browse http://librarykali from our host machine within the network through dchp.
 
