@@ -323,7 +323,6 @@ sudo mkdir /var/log/glpi
 ```bash
 sudo chown www-data /var/log/glpi
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo nano /var/www/glpi/inc/downstream.php
 ```
