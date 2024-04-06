@@ -272,42 +272,33 @@ sudo ufw allow 80/tcp
 # GLPI 
 **GLPI is an open source IT Asset Management, issue tracking system and service desk system. This software is written in PHP and distributed as open-source software under the GNU General Public License. GLPI is a web-based application helping companies to manage their information system.**
 
-11) Install apache2 for the webpage
 ```bash
 sudo apt-get install apache2 php mariadb-server
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo apt-get install php-xml php-common php-json php-mysql php-mbstring php-curl php-gd php-intl php-zip php-bz2 php-imap php-apcu
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo mariadb_secure_installation
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo mariadb -u root -p
 ```
-11) Install apache2 for the webpage
 ```bash
 CREATE DATABASE db_glpi;
 GRANT ALL PRIVILEGES ON db_glpi.* TO glpi_admin@localhost IDENTIFIED BY "YourPassword";
 FLUSH PRIVILEGES;
 EXIT
 ```
-11) Install apache2 for the webpage
 ```bash
 wget https://github.com/glpi-project/glpi/releases/download/10.0.10/glpi-10.0.10.tgz
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo tar -xzvf glpi-10.0.10.tgz -C /var/www/
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo chown www-data /var/www/glpi/ -R
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo mkdir /etc/glpi
 ```
@@ -350,23 +341,18 @@ sudo nano /etc/glpi/local_define.php
 define('GLPI_VAR_DIR', '/var/lib/glpi/files');
 define('GLPI_LOG_DIR', '/var/log/glpi');
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo nano /etc/apache2/sites-available/librarykali.conf
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo a2ensite support.it-connect.tech.conf
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo a2enmod rewrite
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo systemctl restart apache2
 ```
-11) Install apache2 for the webpage
 ```bash
 sudo apt-get install php8.1-fpm
 ```
