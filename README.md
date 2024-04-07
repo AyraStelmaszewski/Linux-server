@@ -436,10 +436,33 @@ echo "Combined file compressed and saved as $destination/$filename.xz"
 # Clean up temporary directory
 rm -r "$tmp_dir"
 ```
-3) Create a crontab who will lunch the script each monday at 6am 
+3) To uncompress the file : 
+```bash
+tar -xvf file.xz.tar
+```
+4) Create a crontab who will lunch the script each monday at 6am 
 ```bash
 contrab -e
 ```
 ```bash
 0 6 * * 1 /bin/bash /home/ayra/backupconfig.sh
 ````
+## Workstation services 
+**LibreOffice, Gimp, Mullvad browser**
+
+1) Gimp
+```bash
+sudo apt-get install gimp
+````
+2) Libre Office
+```bash 
+sudo apt-get install libreoffice
+````
+3) Mullvad browser 
+```bash
+https://mullvad.net/fr/download/browser/macos
+```
+```bash
+https://mullvad.net/en/help/verifying-mullvad-browser-signature
+```
+====================================================================================================================================
