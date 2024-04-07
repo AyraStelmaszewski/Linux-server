@@ -378,3 +378,68 @@ sudo systemctl restart php8.1-fpm.service
 ```bash
 sudo systemctl restart apache2
 ```
+
+##  Crontab automation 
+**Weekly backup the configuration files for each service.**
+1) First let's define all the configuration files we want to backup each week ; 
+```bash
+/etc/dhcp/dhcpd.conf
+/etc/bind/zones/db.librarykali
+/etc/glpi/config_db.php
+/var/log/glpi/event.log
+```
+2) Create a bash script to automate backup of all files in one compressed file.
+```bash
+#!/bin/bash
+
+# Define the destination directory for the compressed file
+destination="/home/ayra/weekly-backup"
+
+# Get the current date and format it as month/day/year/hours/min
+current_date=$(date "+%m-%d-%y-%H_%M")
+
+# Define the filename for the compressed file using the current date
+filename="${current_date}backup.tar"
+
+# Create a temporary directory for combining files
+tmp_dir=$(mktemp -d)
+
+# Define the list of files to copy
+files=(
+    "/etc/dhcp/dhcpd.conf"
+    "/etc/bind/zones/db.librarykali"
+    "/etc/glpi/config_db.php"
+    "/var/log/glpi/event.log"
+)
+
+# Copy the contents of the files into the temporary directory
+for file in "${files[@]}"; do
+    if [ -f "$file" ]; then
+        echo "Copying contents of $file to $tmp_dir"
+        cp "$file" "$tmp_dir"
+    else
+        echo "Warning: $file does not exist."
+    fi
+done
+
+# Navigate to the temporary directory
+cd "$tmp_dir" || exit
+
+# Combine the copied files into a single tar archive
+tar -cf "$destination/$filename" *
+
+# Compress the tar archive using xz compression
+xz "$destination/$filename"
+
+echo "Combined file compressed and saved as $destination/$filename.xz"
+
+# Clean up temporary directory
+rm -r "$tmp_dir"
+```
+3) Create a crontab who will lunch the script each monday at 6am 
+```bash
+contrab -e
+```
+```bash
+0 6 * * 1 /bin/bash /home/ayra/backupconfig.sh
+````
